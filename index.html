@@ -16,6 +16,30 @@
         let level = 0
         let lives = 5
 
+        function create_harm_obj() {
+            return {
+                "type":"harm",
+                "x": canvas.width, "y": Math.floor(Math.random() * (canvas.height-150)) + 100,
+                "dx": -5, "dy": 0,
+                "r": 30, "img": "8.png",
+                "phi": 0, // angular rotation in degrees
+                "dphi": 3, // angular momentum
+                "alive":1
+            }
+        }
+
+        function create_benefit_obj() {
+            return {
+                "type": "b" + (Math.floor(Math.random() * 7)+1),
+                "x": canvas.width + Math.floor(Math.random() * canvas.width), "y": Math.floor(Math.random() * (canvas.height-150)) + 100,
+                "dx": -5, "dy": 0,
+                "r": 30, "img": "8.png",
+                "phi": 0, // angular rotation in degrees
+                "dphi": 3, // angular momentum
+                "alive":1
+            }
+        }
+
         function draw_circle(x, y, r) {
             ctx.moveTo(x, y)
             ctx.arc(x, y, r, 0, 2*Math.PI)
@@ -23,7 +47,6 @@
         }
 
         function draw_obj(obj) {
-            //ctx.arc(obj["x"], obj["y"], obj["radius"], 0, 2*Math.PI)
             const image = document.getElementById(obj["type"])
             const x = obj["x"]
             const y = obj["y"]
@@ -68,11 +91,11 @@
                     obj["x"] = canvas.width
                     obj["y"] = Math.floor(Math.random() * (canvas.height-150)) + 100
                 }
-                if (obj["y"] < -40) {
-                    obj["y"] = canvas.height
+                if (obj["y"] < 50) {
+                    obj["y"] = 50
                 }
-                if (obj["y"] > canvas.height) {
-                    obj["y"] = -40
+                if (obj["y"] > canvas.height - 75) {
+                    obj["y"] = canvas.height - 75
                 }
             })
         }
@@ -89,10 +112,12 @@
             }
 
             for (i = 1; i < objs.length; i++) {
-                const or = objs[i]["r"]
-                const ox = objs[i]["x"]+or
-                const oy = objs[i]["y"]+or
-                const otype = objs[i]["type"]
+                const obj = objs[i]
+                if (obj["alive"] == 0) continue
+                const or = obj["r"]
+                const ox = obj["x"]+or
+                const oy = obj["y"]+or
+                const otype = obj["type"]
 
                 if (dist(px, ox, py, oy) < pr + or) { // collison
                     if (otype == "harm") {
@@ -101,10 +126,29 @@
                         if (lives == 0) {
                             return false
                         }
+
                         setTimeout(() => {
                             player_obj["alive"] = 1
                             ctx.beginPath()
                         }, 2000)
+                    } else if (otype.startsWith("b")) {
+                        obj["alive"] = 0
+                        score++
+                        if (score % 5 == 0) {
+                            level++
+                            objs.push(create_benefit_obj())
+                            objs.push(create_harm_obj())
+                            objs.forEach(o => {
+                                if (o["type"] == "harm") {
+                                    o["dx"] *= 1.2
+                                }
+                            })
+                        }
+                        setTimeout(() => {
+                            console.log("huh")
+                            obj["alive"] = 1
+                            ctx.beginPath()
+                        }, 500)
                     }
                 }
             }
@@ -117,25 +161,19 @@
             level = 0
             lives = 5
             let objs = []
-            let std_harm_obj = 
-            {"type":"harm",
-                    "x": canvas.width, "y": Math.floor(Math.random() * (canvas.height-150)) + 100,
-                    "dx": -8, "dy": 0,
-                    "r": 30, "img": "8.png",
-                    "phi": 0, // angular rotation in degrees
-                    "dphi": 3, // angular momentum
-                    "alive":1
-            }
+            let std_harm_obj = create_harm_obj()
+            let std_benefit_obj = create_benefit_obj()
             let player_obj =
             {"type":"player",
                 "x": 50, "y": 100,
-                "dx": 0, "dy": 10,
+                "dx": 0, "dy": 15,
                 "r": 30, "img": "cue.png",
                 "phi": 0, "dphi": 1,
                 "alive":1
             }
             objs.push(player_obj)
             objs.push(std_harm_obj)
+            objs.push(std_benefit_obj)
 
             // player event handlers:
             window.addEventListener("keydown", (e) => {
@@ -143,6 +181,21 @@
                     objs[0]["y"] += objs[0]["dy"]
                 } else if (e.key == "Up" || e.key == "ArrowUp" || e.key == "w") {
                     objs[0]["y"] -= objs[0]["dy"]
+                } else if (e.key == " ") {
+                    objs[0]["alive"] = 0
+                    //setTimeout(() => {
+                    //    objs[0]["alive"] = 1
+                    //    ctx.beginPath()
+                    //}, 2000)
+                } else {
+                    console.log(e.key)
+                }
+            })
+
+            window.addEventListener("keyup", (e) => {
+                if (e.key == " ") {
+                    objs[0]["alive"] = 1
+                    ctx.beginPath()
                 }
             })
 
@@ -221,5 +274,12 @@
         
     </script>
     <img src = "8.png" id="harm" hidden></img>
+    <img src = "7.png" id="b7" hidden></img>
+    <img src = "6.png" id="b6" hidden></img>
+    <img src = "5.png" id="b5" hidden></img>
+    <img src = "4.png" id="b4" hidden></img>
+    <img src = "3.png" id="b3" hidden></img>
+    <img src = "2.png" id="b2" hidden></img>
+    <img src = "1.png" id="b1" hidden></img>
     <img src = "cue.png" id="player" hidden></img>
 </html>
