@@ -183,21 +183,21 @@
                     objs[0]["y"] -= objs[0]["dy"]
                 } else if (e.key == " ") {
                     objs[0]["alive"] = 0
-                    //setTimeout(() => {
-                    //    objs[0]["alive"] = 1
-                    //    ctx.beginPath()
-                    //}, 2000)
+                    setTimeout(() => {
+                       objs[0]["alive"] = 1
+                       ctx.beginPath()
+                    }, 2000)
                 } else {
                     console.log(e.key)
                 }
             })
 
-            window.addEventListener("keyup", (e) => {
-                if (e.key == " ") {
-                    objs[0]["alive"] = 1
-                    ctx.beginPath()
-                }
-            })
+            // window.addEventListener("keyup", (e) => {
+            //     if (e.key == " ") {
+            //         objs[0]["alive"] = 1
+            //         ctx.beginPath()
+            //     }
+            // })
 
             // start game loop
             window.requestAnimationFrame(draw)
