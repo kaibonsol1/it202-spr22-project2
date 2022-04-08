@@ -9,11 +9,13 @@
     <script>
         // canvas initialization
         var canvas = document.getElementById("myCanvas")
+        canvas.width = document.body.clientWidth
+        canvas.height = document.body.clientHeight
         var ctx = canvas.getContext("2d")
 
         // game initialization
         let score = 0
-        let level = 0
+        let level = 1
         let lives = 5
 
         function create_harm_obj() {
@@ -141,6 +143,7 @@
                             objs.forEach(o => {
                                 if (o["type"] == "harm") {
                                     o["dx"] *= 1.2
+                                    o["dphi"] *= 1.2
                                 }
                             })
                         }
@@ -158,7 +161,7 @@
         function start_game() {
             window.removeEventListener("click", start_game)
             score = 0
-            level = 0
+            level = 1
             lives = 5
             let objs = []
             let std_harm_obj = create_harm_obj()
@@ -264,7 +267,9 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height)
             ctx.font = "24px Arial"
             ctx.fillStyle = "white"
-            ctx.fillText("Game over!", 175, canvas.height/2-50)
+            ctx.fillText("Game over!", 175, canvas.height/2-150)
+            ctx.fillText("Level: " + level, 175, canvas.height/2-100)
+            ctx.fillText("Score: " + score, 175, canvas.height/2-50)
             ctx.fillText("Click anywhere to try again.", 150, canvas.height/2)
             
             window.addEventListener("click", start_game)
