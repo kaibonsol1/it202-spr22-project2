@@ -232,8 +232,10 @@
                 var tiltFB = eventData.beta;
                 var dir = eventData.alpha;
                 
-                if (tiltLR < 90 && tiltLR > -90)
-                    objs[0]["y"] = ((tiltLR+90)/180) * canvas.height - 100
+                if (tiltLR < 0)
+                    objs[0]["y"] += objs[0]["dy"]
+                else
+                    objs[0]["y"] -= objs[0]["dy"]
             }
 
             // deprecated code for if you want to hold space for ghost mode
