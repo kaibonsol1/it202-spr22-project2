@@ -3,6 +3,7 @@
     "short_name": "8ball",
     "start_url": "./",
     "display": "standalone",
+    "orientation": "landscape",
     "theme_color": "#ffffff",
     "background_color":"#ffffff",
     "icons": [

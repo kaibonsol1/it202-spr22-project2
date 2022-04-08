@@ -206,6 +206,21 @@
                 }
             })
 
+            if ('DeviceOrientationEvent' in window) {
+                window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+            } else {
+                console.log("nope haha")
+            }
+
+            function deviceOrientationHandler (eventData) {
+                var tiltLR = eventData.gamma;
+                var tiltFB = eventData.beta;
+                var dir = eventData.alpha;
+                
+                objs[0]["y"] = (tiltFB/90) * canvas.height - 100
+            }
+
+            // deprecated code for if you want to hold space for ghost mode
             // window.addEventListener("keyup", (e) => {
             //     if (e.key == " ") {
             //         objs[0]["alive"] = 1
