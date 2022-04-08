@@ -218,7 +218,7 @@
                     DeviceOrientationEvent['requestPermission']()
                     .then(permissionState => {
                         if (permissionState === 'granted')  {
-                            window.addEventListener('deviceorientation', deviceOrientationHandler, false)
+                            window.addEventListener('deviceorientation', deviceOrientationHandler, true)
                         }
                     })
                 }
@@ -226,17 +226,15 @@
                 console.log("nope haha")
             }
 
+            var tiltLR = 0
             function deviceOrientationHandler (eventData) {
-                var tiltLR = eventData.gamma;
+                tiltLR = eventData.gamma;
                 var tiltFB = eventData.beta;
                 var dir = eventData.alpha;
                 
                 if (tiltLR > 90)  {tiltLR = 90}
                 if (tiltLR < 0) {tiltLR = 0}
                 // i only want like 0-90
-
-                ctx.fillStyle = "white"
-                ctx.fillText("tiltLR: " + tiltLR, canvas.width-475, 50)
 
                 objs[0]["y"] = (canvas.height*(tiltLR)/90-50)
             }
@@ -263,6 +261,8 @@
                 background.src = "bg.jpg"
                 ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
+                ctx.fillStyle = "white"
+                ctx.fillText("tiltLR: " + tiltLR, canvas.width-475, 50)
                 ctx.font = "24px Arial"
                 ctx.fillStyle = "white"
                 ctx.fillText("Level: " + level, canvas.width-350, 50)
