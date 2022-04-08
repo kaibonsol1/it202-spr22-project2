@@ -2,10 +2,21 @@
 <html>
     <head>
         <title>Game</title>
+        <link rel="manifest" href="https://kaibonsol1.github.io/it202-spr22-project2/mainfest.webmanifest">
+        <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('https://kaibonsol1.github.io/it202-spr22-project2/sw.js');
+        };
+        </script>
     </head>
     <canvas tabindex='1' id="myCanvas" width="600" height="600" style="border:1px solid #d3d3d3;">
         No support :(</canvas>
-
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('https://kaibonsol1.github.io/it202-spr22-project2/sw.js')
+            .then(function() { console.log("Service worker registered"); });
+        }
+    </script>
     <script>
         // canvas initialization
         var canvas = document.getElementById("myCanvas")
