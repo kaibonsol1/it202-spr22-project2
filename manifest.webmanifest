@@ -1,6 +1,6 @@
 {
-    "name": "Game",
-    "short_name": "gm",
+    "name": "8Ball Game",
+    "short_name": "8ball",
     "start_url": "./",
     "display": "standalone",
     "theme_color": "#ffffff",
