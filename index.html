@@ -35,9 +35,9 @@
         function create_harm_obj() {
             return {
                 "type":"harm",
-                "x": canvas.width, "y": Math.floor(Math.random() * (canvas.height-150)) + 100,
-                "dx": -5, "dy": 0,
-                "r": 30, "img": "8.png",
+                "x": canvas.width, "y": Math.floor(Math.random() * (canvas.height-150)) + 75,
+                "dx": -(canvas.width/300), "dy": 0,
+                "r": 30, 
                 "phi": 0, // angular rotation in degrees
                 "dphi": 3, // angular momentum
                 "alive":1
@@ -47,9 +47,9 @@
         function create_benefit_obj() {
             return {
                 "type": "b" + (Math.floor(Math.random() * 7)+1),
-                "x": canvas.width + Math.floor(Math.random() * canvas.width), "y": Math.floor(Math.random() * (canvas.height-150)) + 100,
-                "dx": -5, "dy": 0,
-                "r": 30, "img": "8.png",
+                "x": canvas.width + Math.floor(Math.random() * canvas.width), "y": Math.floor(Math.random() * (canvas.height-150)) + 75,
+                "dx": -(canvas.width/300), "dy": 0,
+                "r": 30,
                 "phi": 0, // angular rotation in degrees
                 "dphi": 3, // angular momentum
                 "alive":1
@@ -239,6 +239,7 @@
                 //else if (tiltLR < -45) {tiltLR = 89}
                 //else if (tiltLR < 0)   {tiltLR = 0}
                 // i only want like 0-90
+                if (tiltLR < -45) {tiltLR = 89}
 
                 objs[0]["y"] = (canvas.height*(tiltLR)/90-50)
             }
