@@ -215,7 +215,14 @@
             })
             
             if ('DeviceOrientationEvent' in window) {
-                window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+                if (typeof DeviceOrientationEvent['requestPermission'] === 'function') {
+                    DeviceOrientationEvent['requestPermission']()
+                    .then(permissionState => {
+                        if (permissionState === 'granted')  {
+                            window.addEventListener('deviceorientation', deviceOrientationHandler, false)
+                        }
+                    })
+                }
             } else {
                 console.log("nope haha")
             }
