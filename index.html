@@ -20,8 +20,10 @@
     <script>
         // canvas initialization
         var canvas = document.getElementById("myCanvas")
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
+        //canvas.width = window.innerWidth
+        //canvas.height = window.innerHeight
+        canvas.width = document.body.clientWidth
+        canvas.height = document.body.clientHeight
         var ctx = canvas.getContext("2d")
 
         // game initialization
