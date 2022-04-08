@@ -234,6 +234,7 @@
                 
                 if (tiltLR > 90)  {tiltLR = 90}
                 if (tiltLR < -90) {tiltLR = -90}
+                tiltLR += 90
 
                 objs[0]["y"] = (canvas.height*tiltLR/180-50)
             }
