@@ -232,7 +232,7 @@
                 var tiltFB = eventData.beta;
                 var dir = eventData.alpha;
                 
-                if (tiltLR > 90)  {tiltLR = 90}
+                if (tiltLR >= 89)  {tiltLR = 89}
                 if (tiltLR < 0) {tiltLR = 0}
                 // i only want like 0-90
 
@@ -262,7 +262,7 @@
                 ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
                 ctx.fillStyle = "white"
-                ctx.fillText("tiltLR: " + tiltLR, canvas.width-475, 50)
+                ctx.fillText("tiltLR: " + Math.round(tiltLR), canvas.width-475, 50)
                 ctx.font = "24px Arial"
                 ctx.fillStyle = "white"
                 ctx.fillText("Level: " + level, canvas.width-350, 50)
