@@ -3,6 +3,7 @@
     <head>
         <title>Game</title>
         <link rel="manifest" href="https://kaibonsol1.github.io/it202-spr22-project2/manifest.webmanifest">
+        <link rel="manifest" href="manifest.json">
         <script>
         if('serviceWorker' in navigator) {
             navigator.serviceWorker.register('https://kaibonsol1.github.io/it202-spr22-project2/sw.js');
@@ -20,10 +21,10 @@
     <script>
         // canvas initialization
         var canvas = document.getElementById("myCanvas")
-        //canvas.width = window.innerWidth
-        //canvas.height = window.innerHeight
-        canvas.width = document.body.clientWidth
-        canvas.height = document.body.clientHeight
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+        //canvas.width = document.body.clientWidth
+        //canvas.height = document.body.clientHeight
         var ctx = canvas.getContext("2d")
 
         // game initialization
